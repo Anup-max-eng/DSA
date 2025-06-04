@@ -8,42 +8,36 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
-    LinkedList<Integer> list = new LinkedList<>();
-    LinkedList<Integer> reordered = new LinkedList<>();
-
+ class Solution {
     public void reorderList(ListNode head) {
-        // Step 1: Copy node values into list
+        if (head == null) return;
+
+        List<Integer> list = new ArrayList<>();
         ListNode curr = head;
+
+        // Step 1: Copy node values into ArrayList for O(1) access
         while (curr != null) {
             list.add(curr.val);
             curr = curr.next;
         }
 
-        // Step 2: Use recursion to reorder into new list
-        recur(0, list.size() - 1);
-
-        // Step 3: Write back reordered values to linked list nodes
+        int i = 0, j = list.size() - 1;
         curr = head;
-        int idx = 0;
-        while (curr != null && idx < reordered.size()) {
-            curr.val = reordered.get(idx++);
+
+        // Step 2: Reorder by alternating values from front and back
+        while (i <= j) {
+            if (i == j) {
+                // When i == j, only one element remains
+                curr.val = list.get(i);
+                curr = curr.next;
+                break;
+            }
+            curr.val = list.get(i++);
+            curr = curr.next;
+
+            curr.val = list.get(j--);
             curr = curr.next;
         }
     }
-
-    private void recur(int i, int n) {
-        if (i > n) return;
-
-        if (i == n) {
-        
-            reordered.add(list.get(i));
-            return;
-        }
-
-        reordered.add(list.get(i));
-        reordered.add(list.get(n));
-
-        recur(i + 1, n - 1);
-    }
 }
+
