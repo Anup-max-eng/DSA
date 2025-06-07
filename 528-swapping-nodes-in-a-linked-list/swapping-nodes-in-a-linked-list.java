@@ -8,29 +8,27 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
+ class Solution {
     public ListNode swapNodes(ListNode head, int k) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        ListNode curr = head;
-        while (curr != null) {
-            arr.add(curr.val);
-            curr = curr.next;
-        }
-        int n = arr.size();
-        int i = k - 1;
-        int j = n - k;
-        int temp = arr.get(i);
-        arr.set(i, arr.get(j));
-        arr.set(j, temp);
+        ListNode first = head, second = head, front = head;
 
-       
-        ListNode dummy = new ListNode(0);
-        ListNode tail = dummy;
-        for (int val : arr) {
-            tail.next = new ListNode(val);
-            tail = tail.next;
+        
+        for (int i = 1; i < k; i++) {
+            front = front.next;
         }
+        ListNode kthFromStart = front;
 
-        return dummy.next;
+        while (front.next != null) {
+            front = front.next;
+            second = second.next;
+        }
+        ListNode kthFromEnd = second;
+
+        int temp = kthFromStart.val;
+        kthFromStart.val = kthFromEnd.val;
+        kthFromEnd.val = temp;
+
+        return head;
     }
 }
+
