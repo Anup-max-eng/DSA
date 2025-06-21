@@ -1,6 +1,7 @@
+
 class Solution {
     public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        TreeMap<Integer, Integer> map = new TreeMap<>();
 
         for (int[] pair : nums1) {
             map.put(pair[0], map.getOrDefault(pair[0], 0) + pair[1]);
@@ -9,15 +10,16 @@ class Solution {
         for (int[] pair : nums2) {
             map.put(pair[0], map.getOrDefault(pair[0], 0) + pair[1]);
         }
-        List<Integer> keys = new ArrayList<>(map.keySet());
-        Collections.sort(keys);
 
-      
-        List<int[]> result = new ArrayList<>();
-        for (int key : keys) {
-            result.add(new int[]{key, map.get(key)});
+        // TreeMap maintains sorted keys by default
+        int[][] result = new int[map.size()][2];
+        int i = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            result[i][0] = entry.getKey();
+            result[i][1] = entry.getValue();
+            i++;
         }
 
-        return result.toArray(new int[result.size()][]);
+        return result;
     }
 }
