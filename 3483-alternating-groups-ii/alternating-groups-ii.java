@@ -1,27 +1,22 @@
+
 class Solution {
     public int numberOfAlternatingGroups(int[] colors, int k) {
-        ArrayList<Integer> arr = new ArrayList<>();
+        int n = colors.length;
+        int totalLength = n + k - 1;
+        int a = 1, b = 0;
 
-        for (int i = 0; i < colors.length; i++) {
-            arr.add(colors[i]);
-        }
+        for (int i = 1; i < totalLength; i++) {
+            int curr = colors[i % n];
+            int prev = colors[(i - 1) % n];
 
-        for (int i = 0; i < k - 1; i++) {
-            arr.add(colors[i]);
-        }
-
-        int a = 1;
-        int b = 0; 
-
-        for (int i = 1; i < arr.size(); i++) {
-            if (!arr.get(i).equals(arr.get(i - 1))) {
+            if (curr != prev) {
                 a++;
                 if (a == k) {
                     b++;
-                    a--; 
+                    a--;
                 }
             } else {
-                a = 1; 
+                a = 1;
             }
         }
 
