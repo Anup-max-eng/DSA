@@ -4,8 +4,7 @@ class Solution {
 
         for (int i = 0; i < st.length(); i += 2 * k) {
             int left = i;
-            int right = Math.min(i + k - 1, st.length() - 1);  // only reverse first k characters in each 2k block
-
+            int right = Math.min(i + k - 1, st.length() - 1); 
             while (left < right) {
                 char temp = st.charAt(left);
                 st.setCharAt(left, st.charAt(right));
